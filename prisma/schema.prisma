@@ -3,34 +3,36 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
 model pokemon {
-  id            BigInt          @id @default(autoincrement())
-  order         Int?
-  name          String?
-  type          String?
+  id            Int             @id @default(autoincrement())
+  order         Int             @unique(map: "order")
+  name          String          @unique(map: "name") @db.VarChar(255)
   pokemon_types pokemon_types[]
 }
 
 model pokemon_types {
-  id         BigInt  @id @default(autoincrement())
-  pokemon_id BigInt
-  type_id    BigInt
-  pokemon    pokemon @relation(fields: [pokemon_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pokemon")
+  id         Int     @id @default(autoincrement())
+  pokemon_id Int
+  type_id    Int
   type       type    @relation(fields: [type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_type")
+  pokemon    pokemon @relation(fields: [pokemon_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pokemon")
+
+  @@index([pokemon_id], map: "pokemon_id")
+  @@index([type_id], map: "type_id")
 }
 
 model type {
-  id            BigInt          @id @default(autoincrement())
-  name          String?
+  id            Int             @id @default(autoincrement())
+  name          String?         @db.VarChar(255)
   pokemon_types pokemon_types[]
 }
 
 model user {
-  id       BigInt @id @unique @default(autoincrement())
-  email    String @unique
-  password String
+  id       Int    @id @default(autoincrement())
+  email    String @unique @db.VarChar(255)
+  password String @db.VarChar(255)
 }
