@@ -1,6 +1,13 @@
 import express, {NextFunction, Request, Response} from 'express';
 import jwt from 'jsonwebtoken';
-import {createPokemon, deletePokemon, getAllPokemon, getById, updatePokemon} from "../controllers/pokemonController";
+import {
+    createPokemon,
+    deletePokemon,
+    getAllPokemon,
+    getById,
+    getTypes,
+    updatePokemon
+} from "../controllers/pokemonController";
 
 const router = express.Router()
 const JWT_SECRET = process.env.JWT_SECRET || 'default-secret'
@@ -25,6 +32,7 @@ const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
     })
 }
 router.get('/', authenticateToken, getAllPokemon); //--> Listar todos los pokemones
+router.get('/types', authenticateToken, getTypes); //--> Listar todos los types
 router.get('/:id', authenticateToken, getById); // --> Listar un pokemon en expecifico
 router.post('/', authenticateToken, createPokemon); // --> Crear un pokemon
 router.put('/:id', authenticateToken, updatePokemon); // --> Actualizar algun campo de un pokemon
