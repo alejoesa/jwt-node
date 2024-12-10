@@ -151,3 +151,18 @@ export const deletePokemon = async (req: Request, res: Response) => {
     console.log(e)
     }
 }
+
+
+
+
+export const getTypes = async (req:Request, res: Response) =>
+{
+    try {
+     const types = await prisma.type.findMany()
+     res.status(200).json(types)
+    }
+    catch (e){
+        console.log(e)
+    }
+
+}
