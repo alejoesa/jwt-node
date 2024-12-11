@@ -7,20 +7,18 @@ export const getById = async (req: Request, res: Response) => {
         const {id} = req.params
 
 
-
-        const pokemon = await  prisma.pokemon.findFirst({
+        const pokemon = await prisma.pokemon.findFirst({
             where: {
                 id: Number(id)
             }
         })
         //Validations
-        if (pokemon === null){
+        if (pokemon === null) {
             res.status(404).json({error: 'Id not found'})
         }
         res.status(200).json(pokemon)
-    }
-    catch (e){
-    console.log(e)
+    } catch (e) {
+        console.log(e)
     }
 
 }
@@ -29,7 +27,22 @@ export const getById = async (req: Request, res: Response) => {
 export const getAllPokemon = async (req: Request, res: Response) => {
 
     try {
-        const pokemon = await prisma.pokemon.findMany()
+        const pokemon = await prisma.pokemon.findMany({
+            select: {
+                id: true,
+                order: true,
+                name: true,
+                pokemon_types: {
+                    select: {
+                        type: {
+                            select: {
+                                name: true
+                            }
+                        }
+                    }
+                }
+            }
+        })
 
         res.status(200).json(pokemon)
     } catch (e) {
@@ -146,22 +159,17 @@ export const deletePokemon = async (req: Request, res: Response) => {
             }
         })
         res.status(200).json({message: `El ${id} fue eliminado`})
-    }
-    catch (e) {
-    console.log(e)
+    } catch (e) {
+        console.log(e)
     }
 }
 
 
-
-
-export const getTypes = async (req:Request, res: Response) =>
-{
+export const getTypes = async (req: Request, res: Response) => {
     try {
-     const types = await prisma.type.findMany()
-     res.status(200).json(types)
-    }
-    catch (e){
+        const types = await prisma.type.findMany()
+        res.status(200).json(types)
+    } catch (e) {
         console.log(e)
     }
 
