@@ -1,4 +1,4 @@
-import { User } from '../models/user.interface';
+import { User } from '../models/entities/user.interface';
 import jwt from 'jsonwebtoken';
 import express, { NextFunction, Request, Response } from 'express';
 

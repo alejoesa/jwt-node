@@ -5,7 +5,7 @@ export interface Pokemon {
   types: PokemonType[];
 }
 
-interface PokemonType {
+export interface PokemonType {
   id: number;
   name: string;
 }
