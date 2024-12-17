@@ -25,7 +25,7 @@ export const getByOrder = async (req: Request, res: Response) => {
 
 export const getAllPokemon = async (req: Request, res: Response) => {
   try {
-    const pokemons = await pokemonService.getAll();
+    const pokemons = await pokemonService.getAllPokemon();
     res.status(200).json(pokemons);
   } catch (error) {
     res.status(500).json({ message: 'Error al obtener los pokemons' });

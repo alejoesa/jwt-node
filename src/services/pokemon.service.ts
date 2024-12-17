@@ -4,7 +4,7 @@ import { Pokemon, PokemonType } from '../models/entities/pokemon.interface';
 const prisma = new PrismaClient();
 
 export class PokemonService {
-  async getAll(): Promise<Pokemon[]> {
+  async getAllPokemon(): Promise<Pokemon[]> {
     const pokemons = await prisma.pokemon.findMany({
       select: {
         id: true,
