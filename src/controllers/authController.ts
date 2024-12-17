@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
 import { comparePasswords, hashPassword } from '../utils/password.service';
-import prisma from '../models/user';
 import { generateToken } from '../utils/auth.service';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export const register = async (req: Request, res: Response): Promise<void> => {
   const { email, password } = req.body;

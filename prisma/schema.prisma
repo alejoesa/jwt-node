@@ -19,8 +19,8 @@ model pokemon_types {
   id         Int     @id @default(autoincrement())
   pokemon_id Int
   type_id    Int
-  type       type    @relation(fields: [type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_type")
   pokemon    pokemon @relation(fields: [pokemon_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_pokemon")
+  type       type    @relation(fields: [type_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_type")
 
   @@index([pokemon_id], map: "pokemon_id")
   @@index([type_id], map: "type_id")
@@ -28,12 +28,12 @@ model pokemon_types {
 
 model type {
   id            Int             @id @default(autoincrement())
-  name          String?         @db.VarChar(255)
+  name          String          @db.VarChar(255)
   pokemon_types pokemon_types[]
 }
 
 model user {
   id       Int    @id @default(autoincrement())
-  email    String @unique @db.VarChar(255)
+  email    String @unique(map: "email") @db.VarChar(255)
   password String @db.VarChar(255)
 }

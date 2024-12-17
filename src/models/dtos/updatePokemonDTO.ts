@@ -1,5 +1,6 @@
-import { PokemonDTO } from "./pokemonDTO";
+import { PokemonDTO } from './pokemonDTO';
 
-export interface UpdatePokemonDTO extends Partial<Omit<PokemonDTO, 'id' | 'types' {
-types?: string[];
+export interface UpdatePokemonDTO
+  extends Partial<Omit<PokemonDTO, 'id' | 'types'>> {
+  types?: string[];
 }
