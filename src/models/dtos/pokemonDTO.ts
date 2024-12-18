@@ -1,5 +1,4 @@
 export interface PokemonDTO {
-  id: number;
   order: number;
   name: string;
   types: PokemonTypeDTO[];

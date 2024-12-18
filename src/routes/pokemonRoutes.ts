@@ -11,8 +11,7 @@ import {
 
 const router = express.Router();
 
-//Pasar el middleware por todas las rutas
-router.use(authenticateToken);
+
 
 // Rutas
 router.get('/', getAllPokemon); //--> Listar todos los pokemones
